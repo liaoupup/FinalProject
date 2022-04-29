@@ -20,7 +20,7 @@
                                 <h3><a href="{% url 'abnormal_detail' abnormal.pk %}">{{ abnormal.karyotype }}</a></h3>
                                 <p class="blog-info">
                                     {% for type in  abnormal.abnormal_type.all %}
-                                        <span class="glyphicon glyphicon-tag"></span><a href="{#}">{{ type }}</a>
+                                        <span class="glyphicon glyphicon-tag"></span><a href="{% url 'abnormal_with_type' type.pk %}">{{ type }}</a>
                                     {% endfor %}
                                     &nbsp;&nbsp;
                                     <span class="glyphicon glyphicon-time"></span>{{ abnormal.created_time|date:"Y-m-d" }}&nbsp;&nbsp;
@@ -84,7 +84,7 @@
                     <div class="panel-body">
                         <ul class="blog-types">
                             {% for abnormal_type in abnormal_types %}
-                                <li><a href="#">{{ abnormal_type.name }}({{ abnormal_type.abnormal_count }})</a></li>
+                                <li><a href="{% url 'abnormal_with_type' abnormal_type.pk %}">{{ abnormal_type.name }}({{ abnormal_type.abnormal_count }})</a></li>
                             {% empty %}
                                 <li>暂无分类</li>
                             {% endfor %}
@@ -98,7 +98,7 @@
                         <ul>
                             {% for abnormal_date, abnormal_count in abnormal_dates.items %}
                                 <li>
-                                    <a href="#">
+                                    <a href="{% url 'abnormal_with_date' abnormal_date.year abnormal_date.month %}">
                                         {{ abnormal_date|date:"Y年m月"}}({{ abnormal_count }})
                                     </a>
                                 </li>

@@ -81,3 +81,18 @@ def abnormal_upload(request):
     context = {}
     context['abnormal_form'] = abnormal_form
     return render(request, 'chromosome/abnormal_upload.html', context)
+
+def abnormal_with_type(request, abnormal_type_pk):
+    abnormal_type = get_object_or_404(AbnormalType, pk=abnormal_type_pk)
+    abnormals_all_list = Abnormal.objects.filter(abnormal_type=abnormal_type)
+    context = get_abnormals_list_common_data(request, abnormals_all_list)
+    context['abnormal_type'] = abnormal_type
+
+    return render(request, 'chromosome/abnormal_with_type.html', context)
+
+def abnormal_with_date(request, year, month):
+    abnormals_all_list = Abnormal.objects.filter(created_time__year=year, created_time__month=month)
+    context = get_abnormals_list_common_data(request, abnormals_all_list)
+    context['abnormals_with_date'] = '%s年%s月' % (year, month)
+    return render(request, 'chromosome/abnormal_with_date.html', context)
+

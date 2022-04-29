@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'chromosome/abnormal_list.html' %}
+{% block title %}{{ abnormal_type.name }}{% endblock %}
 
-</body>
-</html>
+{% block blog_list_title %}
+    分类：{{ abnormal_type.name }}
+    <a href="{% url 'abnormal_list' %}">查看全部数据</a>
+{% endblock %}
