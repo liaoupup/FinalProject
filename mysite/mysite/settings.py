@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'comment',
     'user',
     'chromosome',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -180,3 +181,5 @@ EMAIL_HOST_USER = 'zz2p@qq.com'
 EMAIL_HOST_PASSWORD = 'klpciagtdgqdifcg'  # 授权码
 EMAIL_SUBJECT_PREFIX = '[zp web] '
 EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

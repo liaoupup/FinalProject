@@ -1,14 +1,16 @@
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.conf import settings
 from .models import Abnormal, AbnormalType
 from django.db.models import Count
 from django.contrib.contenttypes.models import ContentType
 from read_statistics.utils import read_statistics_once_read
+from django.urls import reverse
 
 from comment.models import Comment
 from comment.forms import CommentForm
+from .forms import AbnormalForm
 
 
 # Create your views here.
@@ -62,3 +64,20 @@ def abnormal_detail(request, abnormal_pk):
     response = render(request, 'chromosome/abnormal_detail.html', context)
     response.set_cookie(read_cookie_key, 'true')
     return response
+
+def abnormal_upload(request):
+    if request.method == 'POST':
+        abnormal_form = AbnormalForm(request.POST, request.FILES)
+        if abnormal_form.is_valid():
+            obj = abnormal_form.save(commit=False)
+            obj.author = request.user
+            obj.save()
+            abnormal_form.save_m2m()
+
+            return redirect('abnormal_list')
+    else:
+        abnormal_form = AbnormalForm()
+
+    context = {}
+    context['abnormal_form'] = abnormal_form
+    return render(request, 'chromosome/abnormal_upload.html', context)
