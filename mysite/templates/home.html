@@ -35,27 +35,27 @@
             {% for hot_data in today_hot_data %}
                 <li><a href="{% url 'abnormal_detail' hot_data.content_object.id %}">{{ hot_data.content_object.karyotype }}</a>({{ hot_data.read_num }})</li>
             {% empty %}
-                <li>今天暂时没有热门博客</li>
+                <li>今天暂时没有热门浏览</li>
             {% endfor %}
         </ul>
     </div>
     <div class="hot-data">
-        <h3>昨天热门博客</h3>
+        <h3>昨天热门浏览</h3>
         <ul>
             {% for hot_data in yesterday_hot_data %}
                 <li><a href="{% url 'abnormal_detail' hot_data.content_object.id %}">{{ hot_data.content_object.karyotype }}</a>({{ hot_data.read_num }})</li>
             {% empty %}
-                <li>昨天暂时没有热门博客</li>
+                <li>昨天暂时没有热门浏览</li>
             {% endfor %}
         </ul>
     </div>
     <div class="hot-data">
-        <h3>7天热门博客</h3>
+        <h3>7天热门浏览</h3>
         <ul>
             {% for hot_abnormal in hot_abnormals_for_7_days %}
                 <li><a href="{% url 'abnormal_detail' hot_abnormal.id %}">{{ hot_abnormal.karyotype}}</a>({{ hot_abnormal.read_num_sum }})</li>
             {% empty %}
-                <li>昨天暂时没有热门博客</li>
+                <li>昨天暂时没有热门浏览</li>
             {% endfor %}
         </ul>
     </div>
