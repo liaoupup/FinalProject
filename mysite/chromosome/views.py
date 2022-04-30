@@ -1,4 +1,4 @@
-
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator
 from django.conf import settings
@@ -7,10 +7,11 @@ from django.db.models import Count
 from django.contrib.contenttypes.models import ContentType
 from read_statistics.utils import read_statistics_once_read
 from django.urls import reverse
+from django.http import HttpResponse
 
 from comment.models import Comment
 from comment.forms import CommentForm
-from .forms import AbnormalForm
+from .forms import AbnormalForm, ReferenceForm
 
 
 # Create your views here.
@@ -44,11 +45,13 @@ def get_abnormals_list_common_data(request, abnormals_all_list):
                'abnormal_dates': abnormal_date_dict}
     return context
 
+@login_required()
 def abnormal_list(request):
     abnormals_all_list = Abnormal.objects.all()
     context = get_abnormals_list_common_data(request, abnormals_all_list)
     return render(request, 'chromosome/abnormal_list.html', context)
 
+@login_required()
 def abnormal_detail(request, abnormal_pk):
     context = {}
     abnormal = get_object_or_404(Abnormal, pk=abnormal_pk)
@@ -65,6 +68,7 @@ def abnormal_detail(request, abnormal_pk):
     response.set_cookie(read_cookie_key, 'true')
     return response
 
+@login_required()
 def abnormal_upload(request):
     if request.method == 'POST':
         abnormal_form = AbnormalForm(request.POST, request.FILES)
@@ -82,6 +86,7 @@ def abnormal_upload(request):
     context['abnormal_form'] = abnormal_form
     return render(request, 'chromosome/abnormal_upload.html', context)
 
+@login_required()
 def abnormal_with_type(request, abnormal_type_pk):
     abnormal_type = get_object_or_404(AbnormalType, pk=abnormal_type_pk)
     abnormals_all_list = Abnormal.objects.filter(abnormal_type=abnormal_type)
@@ -90,9 +95,39 @@ def abnormal_with_type(request, abnormal_type_pk):
 
     return render(request, 'chromosome/abnormal_with_type.html', context)
 
+@login_required()
 def abnormal_with_date(request, year, month):
     abnormals_all_list = Abnormal.objects.filter(created_time__year=year, created_time__month=month)
     context = get_abnormals_list_common_data(request, abnormals_all_list)
     context['abnormals_with_date'] = '%s年%s月' % (year, month)
     return render(request, 'chromosome/abnormal_with_date.html', context)
+
+@login_required()
+def upload_pdf(request, abnormal_pk):
+    if request.method == 'POST':
+        form = ReferenceForm(request.POST, request.FILES)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.abnormal = Abnormal.objects.get(pk=abnormal_pk)
+            obj.save()
+            return HttpResponse('The file is saved')
+    else:
+        form = ReferenceForm()
+        context = {
+            'form': form,
+        }
+    return render(request, 'chromosome/upload_pdf.html', context)
+
+@login_required()
+def abnormal_reference(request, abnormal_pk):
+    context = {}
+    abnormal = get_object_or_404(Abnormal, pk=abnormal_pk)
+
+    context['pmid'] = abnormal.reference.pmid
+    context['title'] = abnormal.reference.title
+    context['abstract'] = abnormal.reference.abstract
+    context['pdf_url'] = abnormal.reference.pdf.url
+
+    return render(request, 'chromosome/abnormal_reference.html', context)
+
 

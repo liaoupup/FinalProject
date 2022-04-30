@@ -183,3 +183,5 @@ EMAIL_SUBJECT_PREFIX = '[zp web] '
 EMAIL_USE_TLS = True  # 与SMTP服务器通信时，是否启动TLS链接(安全链接)
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+LOGIN_URL= '/user/login/'

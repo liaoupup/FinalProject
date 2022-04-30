@@ -49,6 +49,15 @@ class Abnormal(models.Model, ReadNumExpandMethod):
     class Meta:
         ordering = ['-created_time']
 
+class Reference(models.Model):
+    abnormal = models.OneToOneField(Abnormal, null=True, on_delete=models.CASCADE, related_name='reference')
+    pmid = models.IntegerField('PMID', help_text='PubMed唯一标识码')
+    title = models.CharField('标题', max_length=40, help_text='请输入标题')
+    abstract = models.TextField('摘要', help_text='请输入摘要')
+    pdf = models.FileField(upload_to='pdfs/')
+
+    def __str__(self):
+        return self.title
 
 class AbnormalType(models.Model):
     name = models.CharField('异常类型', max_length=10)
@@ -57,3 +66,5 @@ class AbnormalType(models.Model):
 
     def __str__(self):
         return self.name
+
+
