@@ -11,11 +11,11 @@
 
 {# 页面内容 #}
 {% block content %}
-    <div class="container">
+    <div class="container" style="color: #f5f8fa;">
         <div class="row">
             <div class="col-xs-10 col-xs-offset-1">
                 <h3>{{ abnormal.karyotype }}</h3>
-                <ul class="blog-info-description bg-info" >
+                <ul class="blog-info-description bg-info"  style="color: black;">
                     <li>上传者：{{ abnormal.author }}</li>
                     分类：
                     {% for type in abnormal.abnormal_type.all %}
@@ -28,11 +28,11 @@
                     <li>上传日期：{{ abnormal.created_time|date:"Y-m-d H:i:s" }}</li>
                     <li>阅读({{ abnormal.get_read_num }})</li>
                 </ul>
-                <div class="blog-content"><span>临床指征 :</span>{{ abnormal.description|safe }}</div>
-                <div class="blog-content"><span>断裂点位: </span>{{ abnormal.broken_site|default_if_none:"暂无信息" }}</div>
-                <div class="blog-content"><span>脆性位点: </span>{{ abnormal.fragile_site|default_if_none:"暂无信息" }}</div>
-                <div class="blog-content"><span>涉及染色体: </span>{{ abnormal.chromosome }}</div>
-                <div class="blog-content">
+                <div class="blog-content" style="color: #f5f8fa;"><span>临床指征 :</span>{{ abnormal.description|safe }}</div>
+                <div class="blog-content" style="color: #f5f8fa;"><span>断裂点位: </span>{{ abnormal.broken_site|default_if_none:"暂无信息" }}</div>
+                <div class="blog-content" style="color: #f5f8fa;"><span>脆性位点: </span>{{ abnormal.fragile_site|default_if_none:"暂无信息" }}</div>
+                <div class="blog-content" style="color: #f5f8fa;"><span>涉及染色体: </span>{{ abnormal.chromosome }}</div>
+                <div class="blog-content" style="color: #f5f8fa;">
                     <span>核型图： </span>{% if abnormal.image %}<img src="{{abnormal.image.url}}" alt="Smiley face" width="250" height="250" class="img-rounded">{% else %}无图片{% endif %}
                 </div>
                 <div class="blog-content">{% if abnormal.reference %} <a href="{% url 'abnormal_reference' abnormal.pk %}">查看参考文献</a> {% else %}<a href="{% url 'upload_pdf' abnormal.pk %}"> <span class="glyphicon glyphicon-book"></span>添加参考文献</a>{% endif %}</div>

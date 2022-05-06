@@ -12,7 +12,7 @@
     <script type="text/javascript" src="{% static 'bootstrap-3.4.1-dist/js/bootstrap.min.js' %}"></script>
     {% block header_extends %}{% endblock %}
 </head>
-<body background="https://assets.newatlas.com/dims4/default/3755285/2147483647/strip/true/crop/2000x1050+0+158/resize/1200x630!/quality/90/?url=http%3A%2F%2Fnewatlas-brightspot.s3.amazonaws.com%2F53%2F2b%2Fc1be50724503be51dee8777a4f8a%2Fdepositphotos-177206294-l-2015.jpg">
+<body background="{% static 'bg-pic.gif' %}" style="background-size:cover;">
 <!--导航栏，通用-->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">

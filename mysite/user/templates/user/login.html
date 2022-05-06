@@ -9,8 +9,17 @@
 
 {% block content %}
     <div class="containter">
-        <div class="row">
-            <div class="col-xs-4 col-xs-offset-4">
+        <div class="row" style="padding-top:10em;padding-bottom:10em;">
+            <div class="col-xs-6 col-xs-offset-2" style="padding-right:16em;color: #f5f8fa;">
+                <h2 style="font">
+                    这是什么网站？
+                </h2>
+                <p>
+                    为了满足研究人员工作中需要，本文提出了一整套的染色体异常现象处理业务逻辑，希望这些能为相关工作者做出重要的贡献，提高他们的工作效率，提升用户的y使用体验。
+                </p>
+                <P style="padding-top:2em;text-align: right;">----Graduation Project of Zheng Ping</P>
+            </div>
+            <div class="col-xs-4 " style="padding-right: 15em;">
                 {% if not user.is_authenticated %}
 
                     <div class="panel panel-default">
@@ -39,6 +48,6 @@
                     </script>
                 {% endif %}
             </div>
-        </div>
+
     </div>    
 {% endblock %}
