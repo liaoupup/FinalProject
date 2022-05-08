@@ -29,7 +29,7 @@
 
     <div id="container"></div>
 
-    <div class="hot-data">
+    <div class="hot-data" style="color:#eee">
         <h3>今天热门浏览</h3>
         <ul>
             {% for hot_data in today_hot_data %}
@@ -39,7 +39,7 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="hot-data">
+    <div class="hot-data" style="color:#eee">
         <h3>昨天热门浏览</h3>
         <ul>
             {% for hot_data in yesterday_hot_data %}
@@ -49,7 +49,7 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="hot-data">
+    <div class="hot-data" style="color:#eee">
         <h3>7天热门浏览</h3>
         <ul>
             {% for hot_abnormal in hot_abnormals_for_7_days %}
