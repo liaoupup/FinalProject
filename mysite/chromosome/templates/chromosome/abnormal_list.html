@@ -17,7 +17,7 @@
                     <div class="panel-body">
                         {% for abnormal in abnormals %}
                             <div class="blog">
-                                <h3><a href="{% url 'abnormal_detail' abnormal.pk %}">{{ abnormal.karyotype }}</a></h3>
+                                <h3><a href="{% url 'abnormal_detail' abnormal.pk %}">{{ abnormal.description }}</a></h3>
                                 <p class="blog-info">
                                     {% for type in  abnormal.abnormal_type.all %}
                                         <span class="glyphicon glyphicon-tag"></span><a href="{% url 'abnormal_with_type' type.pk %}">{{ type }}</a>
@@ -26,7 +26,7 @@
                                     <span class="glyphicon glyphicon-time"></span>{{ abnormal.created_time|date:"Y-m-d" }}&nbsp;&nbsp;
                                     阅读({{ abnormal.get_read_num }})
                                 </p>
-                                <p>{{ abnormal.description|striptags|truncatechars:30 }}</p>
+                                <p>{{ abnormal.karyotype|striptags|truncatechars:30 }}</p>
                             </div>
                         {% empty %}
                             <div class="blog">

@@ -37,7 +37,13 @@ def get_7_days_hot_abnormals():
 
 def home(request):
     n = 1
-    i = random.randint(0, Motto.objects.count() - n)
+    try:
+        i = random.randint(0, Motto.objects.count() - n)
+        motto = Motto.objects.all()[i].content
+    except Exception as e:
+        motto = "no motto"
+        print('no motto')
+
     abnormal_content_type = ContentType.objects.get_for_model(Abnormal)
     dates, read_nums = get_seven_days_read_data(abnormal_content_type)
     # 获取7天热门博客的缓存数据
@@ -46,7 +52,7 @@ def home(request):
         hot_abnormals_for_7_days = get_7_days_hot_abnormals()
         cache.set('hot_abnormals_for_7_days', hot_abnormals_for_7_days, 3600)
 
-    context = {'motto': Motto.objects.all()[i], 'dates': dates, 'read_nums': read_nums,
+    context = {'motto': motto, 'dates': dates, 'read_nums': read_nums,
                'today_hot_data': get_today_hot_data(abnormal_content_type),
                'yesterday_hot_data': get_yesterday_hot_data(abnormal_content_type),
                'hot_abnormals_for_7_days': hot_abnormals_for_7_days}
@@ -61,7 +67,9 @@ def search(request):
     for word in search_words.split(' '):
         if condition is None:
             condition = Q(karyotype__icontains=word)
+            condition = condition | Q(description__icontains=word)
         else:
+            condition = condition | Q(description__icontains=word)
             condition = condition | Q(karyotype__icontains=word)
 
     search_blogs = []

@@ -32,8 +32,8 @@ class Abnormal(models.Model, ReadNumExpandMethod):
 
     ]
     read_details = GenericRelation(ReadDetail)
-    description = models.CharField("表型", max_length=100, help_text="表型/临床指征")
-    karyotype = models.CharField("核型描述", max_length=30, help_text="遵循ISCN2020描述的核型输入")
+    description = models.CharField("表型", max_length=150, help_text="表型/临床指征")
+    karyotype = models.CharField("核型描述", max_length=150, help_text="遵循ISCN2020描述的核型输入")
     broken_site = models.CharField("断裂点位", max_length=30, help_text="断裂点位（可选）", null=True, blank=True)
     fragile_site = models.CharField("脆性位点", max_length=30, help_text="脆性位点（可选）", null=True, blank=True)
     abnormal_type = models.ManyToManyField('AbnormalType', related_name='abnormal')
